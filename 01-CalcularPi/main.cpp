@@ -1,18 +1,22 @@
 #include <iostream>
 #include <iomanip>
-#include <cmath>
 
 using namespace std;
 
 double liebniz(){
-    double pi_l = 0;
-    int MAX_ITERACIONES = 1000000;
+    double pi_estimado = 0.0;
+    double signo = 1.0;
+    int denominador = 1;
+    while (true) {
+        pi_estimado += signo / denominador;
+        signo *= -1;
+        denominador += 2;
 
-    for (int i = 0; i < MAX_ITERACIONES; i++){
-        pi_l += 4*(pow((-1), i)/(2*i+1));
+        double error = pi_estimado * 4 - 3.141592;
+        if (error >= -0.0000005 && error <= 0.0000005)
+            break;
     }
-    
-    return pi_l;
+    return pi_estimado * 4;
 }
 
 int main(){
